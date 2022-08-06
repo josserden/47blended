@@ -1,7 +1,15 @@
 import { Component } from 'react';
 
 import * as ImageService from 'service/image-service';
-import { Button, SearchForm, Grid, GridItem, Text, CardItem } from 'components';
+import {
+  Button,
+  SearchForm,
+  Grid,
+  GridItem,
+  Text,
+  CardItem,
+  Modal,
+} from 'components';
 
 export class Gallery extends Component {
   state = {
@@ -11,6 +19,8 @@ export class Gallery extends Component {
     isVisible: false,
     error: null,
     isLoading: false,
+    isOpen: false,
+    modalImage: '',
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -30,15 +40,18 @@ export class Gallery extends Component {
         })
         .catch(error => {
           this.setState({ error: error.message });
-        }).finally(()=> this.setState({ isLoading: false }))
+        })
+        .finally(() => this.setState({ isLoading: false }));
     }
   }
+
   handleClick = () => {
-    console.log('click')
+    console.log('click');
     this.setState(prevState => ({
       page: prevState.page + 1,
     }));
   };
+
   onSubmit = data => {
     this.setState({
       images: [],
@@ -46,8 +59,25 @@ export class Gallery extends Component {
       page: 1,
     });
   };
+
+  openModal = modalImage => {
+    console.log(modalImage);
+
+    this.setState({
+      isOpen: true,
+      modalImage: modalImage,
+    });
+  };
+
+  closeModal = () => {
+    this.setState({
+      isOpen: false,
+    });
+  };
+
   render() {
-    const { images, isVisible, error,isLoading } = this.state;
+    const { images, isVisible, error, isLoading, isOpen, modalImage } =
+      this.state;
 
     return (
       <>
@@ -60,11 +90,16 @@ export class Gallery extends Component {
         {error && (
           <Text textAlign="center">❌ Something went wrong - {error}</Text>
         )}
+
         <Grid>
           {images.map(({ id, avg_color, alt, src }) => (
             <GridItem key={id}>
               <CardItem color={avg_color}>
-                <img src={src.large} alt={alt} />
+                <img
+                  src={src.large}
+                  alt={alt}
+                  onClick={() => this.openModal(src.large)}
+                />
               </CardItem>
             </GridItem>
           ))}
@@ -74,6 +109,12 @@ export class Gallery extends Component {
           <Button disabled={isLoading} onClick={this.handleClick}>
             {isLoading ? 'loading ...' : 'Load More'}
           </Button>
+        )}
+
+        {isOpen && (
+          <Modal onClose={this.closeModal}>
+            <img src={modalImage} alt="modal img" />
+          </Modal>
         )}
       </>
     );
