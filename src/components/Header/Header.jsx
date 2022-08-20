@@ -1,4 +1,4 @@
-// import { Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
 
 import { Container } from 'components/App/App.styled';
@@ -29,7 +29,9 @@ export const Header = () => {
         </Container>
       </NavBar>
 
-      {/* <Outlet /> */}
+      <main>
+        <Outlet />
+      </main>
     </>
   );
 };
