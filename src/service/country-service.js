@@ -10,8 +10,8 @@ export const getCountries = async () => {
   return countries;
 };
 
-export const fetchCountry = async name => {
-  const { data } = await axios.get(`/name/${name}`);
+export const fetchCountry = async countryId => {
+  const { data } = await axios.get(`/name/${countryId}`);
   const country = transformCountryData(data);
 
   return country[0];

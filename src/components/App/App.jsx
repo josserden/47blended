@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 
 import { Header } from 'components';
-import { CountrySearch, Home, Country } from 'pages';
+import { CountrySearch, Home, Country, NoMatch } from 'pages';
 
 export const App = () => {
   return (
@@ -11,7 +11,7 @@ export const App = () => {
         <Route path="country" element={<CountrySearch />} />
         <Route path="country/:countryId" element={<Country />} />
 
-        {/* <Route path="*" element={<NoMatch />} /> */}
+        <Route path="*" element={<NoMatch />} />
       </Route>
     </Routes>
   );
