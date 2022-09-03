@@ -11,11 +11,10 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import App from './App';
-import rootReducer from './reducers';
+import rootReducer from './todos-Slice';
 
 const persistConfig = {
-  key: 'root',
+  key: 'todos',
   version: 1,
   storage,
 };
@@ -33,12 +32,3 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
-
-ReactDOM.render(
-  
-    <PersistGate loading={null} persistor={persistor}>
-      <App />
-    </PersistGate>
-  </Provider>,
-  document.getElementById('root')
-);
