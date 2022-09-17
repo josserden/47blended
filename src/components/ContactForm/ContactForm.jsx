@@ -1,20 +1,25 @@
-import { useEffect, useState } from 'react';
 import { nanoid } from 'nanoid';
+import { useState } from 'react';
 
-import { BsFillPersonFill } from 'react-icons/bs';
 import { AiOutlineMessage } from 'react-icons/ai';
+import { BsFillPersonFill } from 'react-icons/bs';
 
+import { useDispatch } from 'react-redux';
+import { addContact } from 'redux/contacts/contactsSlice.js';
+import { getStatus } from 'service/service.js';
 import {
-  Button,
-  LabelText,
   BaseForm,
-  Label,
+  Button,
   Input,
+  Label,
+  LabelText,
 } from './ContactForm.styled.js';
 
 export const ContactForm = () => {
-  const [name, setName] = useState('name', '');
-  const [age, setAge] = useState('age', '');
+  const [name, setName] = useState('');
+  const [age, setAge] = useState('');
+
+  const dispatch = useDispatch();
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -32,8 +37,19 @@ export const ContactForm = () => {
         break;
     }
   };
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault();
+
+    const status = await getStatus();
+
+    const contact = {
+      id: nanoid(),
+      name,
+      age,
+      status,
+    };
+
+    dispatch(addContact(contact));
 
     handleReset();
   };

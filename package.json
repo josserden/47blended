@@ -4,6 +4,9 @@
   "private": true,
   "homepage": "https://josserden.github.io/",
   "dependencies": {
+    "@dicebear/avatars": "^4.10.3",
+    "@dicebear/avatars-identicon-sprites": "^4.10.3",
+    "@dicebear/personas": "^4.10.3",
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
     "@reduxjs/toolkit": "^1.8.5",
@@ -47,5 +50,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "file-loader": "^6.2.0"
   }
 }
