@@ -1,19 +1,32 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact, getContacts } from 'redux/contacts/contactsSlice.js';
+import {
+  deleteContact,
+  editContact,
+  getContacts,
+} from 'redux/contacts/contactsSlice.js';
 import { BaseTable, THead, Td, Th } from './ContactsTable.styled.js';
 import { RiDeleteBin5Line } from 'react-icons/ri';
 import React from 'react';
+import { useState } from 'react';
 
 export const ContactsTable = () => {
+  const [isEditable, setIsEditable] = useState(false);
+  const [currentValue, setCurrentValue] = useState('');
+  const [currentContact, setCurrentContact] = useState({});
   const tableHeaders = ['№', 'avatar', 'name', 'age', 'status', 'action'];
   const contacts = useSelector(getContacts);
 
-  console.log(contacts);
   const dispatch = useDispatch();
 
   const handleDeleteContact = id => {
     dispatch(deleteContact(id));
   };
+
+  const onEditChange = e => {
+    setCurrentValue(e.targetValue);
+  };
+
+  const onUpdateContact = (id, contact) => {};
 
   return (
     <>
@@ -32,7 +45,17 @@ export const ContactsTable = () => {
               <tr key={id}>
                 <Td>{index + 1}</Td>
                 <Td></Td>
-                <Td>{name}</Td>
+                <Td>
+                  {isEditable ? (
+                    <input
+                      type="text"
+                      value={currentValue}
+                      onChange={onEditChange}
+                    />
+                  ) : (
+                    name
+                  )}
+                </Td>
                 <Td>{age}</Td>
                 <Td>
                   <b>{status === 'yes' ? 'online' : 'offline'}</b>
@@ -40,6 +63,13 @@ export const ContactsTable = () => {
                 <Td>
                   <button type="button" onClick={() => handleDeleteContact(id)}>
                     <RiDeleteBin5Line color="red" size={24} />
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setIsEditable(!isEditable)}
+                  >
+                    EDIT
                   </button>
                 </Td>
               </tr>
