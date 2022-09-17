@@ -1,15 +1,10 @@
-import { Container, CountryList, Heading, Loader, Section } from 'components';
-import { useFetchCountries } from 'hooks/useFetchCountries';
+import { Container, Heading, Section } from 'components';
 
 export const Home = () => {
-  const { countries, error, isLoading } = useFetchCountries();
-
   return (
     <Section>
       <Container>
-        {isLoading && <Loader />}
-        <CountryList countries={countries} />
-        {error && <Heading> Error - {error.message} </Heading>}
+        <Heading> Home Page</Heading>
       </Container>
     </Section>
   );

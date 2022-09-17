@@ -1,15 +1,14 @@
-import { Routes, Route } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 
 import { Header } from 'components';
-import { CountrySearch, Home, Country, NoMatch } from 'pages';
+import { AddContactPage, Home, NoMatch } from 'pages';
 
 export const App = () => {
   return (
     <Routes>
       <Route path="/" element={<Header />}>
         <Route index element={<Home />} />
-        <Route path="country" element={<CountrySearch />} />
-        <Route path="country/:countryId" element={<Country />} />
+        <Route path="add" element={<AddContactPage />} />
 
         <Route path="*" element={<NoMatch />} />
       </Route>

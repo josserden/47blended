@@ -2,7 +2,7 @@ import { Outlet } from 'react-router-dom';
 import { useTheme } from '@emotion/react';
 
 import { Container } from 'components/App/App.styled';
-import { FaFlagUsa } from 'react-icons/fa';
+import { IoIosContact } from 'react-icons/io';
 
 import {
   HeaderWrapper,
@@ -19,11 +19,11 @@ export const Header = () => {
       <NavBar>
         <Container>
           <HeaderWrapper>
-            <FaFlagUsa size="40px" color={theme.colors.light} />
+            <IoIosContact size="40px" color={theme.colors.light} />
 
             <LinkWrapper>
               <NavLinkStyled to="/">Home</NavLinkStyled>
-              <NavLinkStyled to="/country">Countries</NavLinkStyled>
+              <NavLinkStyled to="/add">Add Contact</NavLinkStyled>
             </LinkWrapper>
           </HeaderWrapper>
         </Container>
